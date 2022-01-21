@@ -202,10 +202,10 @@ namespace Remotely.Server.Services
 
         Task UpdateBrandingInfo(
                                                                                                                                                                                                                                                     string organizationId,
-            string productName, 
+            string productName,
             byte[] iconBytes,
-            ColorPickerModel titleForeground, 
-            ColorPickerModel titleBackground, 
+            ColorPickerModel titleForeground,
+            ColorPickerModel titleBackground,
             ColorPickerModel titleButtonForeground);
         Task<Device> UpdateDevice(DeviceSetupOptions deviceOptions, string organizationId);
         void UpdateDevice(string deviceID, string tag, string alias, string deviceGroupID, string notes, WebRtcSetting webRtcSetting);
@@ -1307,8 +1307,8 @@ namespace Remotely.Server.Services
                     x.OrganizationID == user.OrganizationID &&
                     (
                         user.IsAdministrator ||
-                        string.IsNullOrWhiteSpace(x.DeviceGroupID) ||
-                        !x.DeviceGroup.Users.Any() ||
+/*                        string.IsNullOrWhiteSpace(x.DeviceGroupID) ||
+                        !x.DeviceGroup.Users.Any() ||*/
                         x.DeviceGroup.Users.Any(deviceUser => deviceUser.Id == user.Id)
                     ))
                 .Select(x => x.ID);
@@ -1341,7 +1341,7 @@ namespace Remotely.Server.Services
             {
                 var orgID = user.OrganizationID;
                 query = query
-                        .Where(x => x.OrganizationID == orgID && 
+                        .Where(x => x.OrganizationID == orgID &&
                             x.TimeStamp >= fromDate && x.TimeStamp <= toDate)
                         .OrderByDescending(x => x.TimeStamp);
             }
@@ -1420,7 +1420,7 @@ namespace Remotely.Server.Services
             var pendingRuns = new List<ScriptRun>();
 
             var now = Time.Now;
-    
+
             var scriptRunGroups = dbContext.ScriptRuns
                 .Include(x => x.Devices)
                 .Include(x => x.DevicesCompleted)
@@ -1462,7 +1462,7 @@ namespace Remotely.Server.Services
         public async Task<SavedScript> GetSavedScript(string userId, Guid scriptId)
         {
             using var dbContext = _dbFactory.CreateDbContext();
-            
+
             return await dbContext.SavedScripts
                 .FirstOrDefaultAsync(x =>
                     x.Id == scriptId &&
