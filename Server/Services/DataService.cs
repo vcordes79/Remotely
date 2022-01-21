@@ -1245,7 +1245,7 @@ namespace Remotely.Server.Services
                     x.OrganizationID == user.OrganizationID &&
                     (
                         user.IsAdministrator ||
-                        x.Users.Count == 0 ||
+//                        x.Users.Count == 0 ||
                         x.Users.Any(x => x.Id == userId)
                     )
                 )
