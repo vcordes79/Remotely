@@ -43,7 +43,8 @@ jobs:
 
       - name: Install .NET Core
         uses: actions/setup-dotnet@v1.8.0
-        
+        with:
+            dotnet-version: '5.0.x'        
       - name: Setup NuGet.exe for use with actions
         uses: NuGet/setup-nuget@v1.0.5
 
@@ -107,7 +108,7 @@ jobs:
       with:
         # Comment out the below 'repository' line if you want to build from
         # your fork instead of the author's.
-        repository: lucent-sea/Remotely
+        # repository: lucent-sea/Remotely
         fetch-depth: 0
 
     # Test the Server URL to make sure it's valid
@@ -122,6 +123,8 @@ jobs:
     # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@v1.8.0
+      with:
+        dotnet-version: '5.0.x'        
       
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
